@@ -6,6 +6,8 @@ import shap
 import xgboost as xgb
 from sklearn.metrics import r2_score
 
+from plot_utils import plot_scatter
+
 warnings.filterwarnings("ignore")
 
 # Load data
@@ -41,30 +43,35 @@ y2_pred = model2.predict(X)
 print(r2_score(y2, y2_pred))
 
 # plot scatter plot for both targets
-plt.scatter(y1, y1_pred)
-plt.xlabel("True Faradic Efficiency")
-plt.ylabel("Predicted Faradic Efficiency")
-plt.title("Faradic Efficiency")
-plt.savefig("figure/faradic_efficiency_xgboost.png")
-plt.close()
-
-plt.scatter(y2, y2_pred)
-plt.xlabel("True NH3 Yield")
-plt.ylabel("Predicted NH3 Yield")
-plt.title("NH3 Yield")
-plt.savefig("figure/nh3_yield_xgboost.png")
-plt.close()
+df_faradic = pd.DataFrame({"true": y1, "pred": y1_pred})
+df_nh3 = pd.DataFrame({"true": y2, "pred": y2_pred})
+plot_scatter(
+    df_faradic,
+    xlabel="Experimental Faradic Efficiency",
+    ylabel="Predicted Faradic Efficiency",
+    out_png="figure/faradic_efficiency_xgboost.png",
+)
+plot_scatter(
+    df_nh3,
+    xlabel="Experimental NH3 Yield",
+    ylabel="Predicted NH3 Yield",
+    out_png="figure/nh3_yield_xgboost.png",
+)
 
 # plot shap values for both targets
+plt.figure()
 explainer = shap.Explainer(model1, X)
 shap_values = explainer(X)
 shap.summary_plot(shap_values, X, show=False)
-plt.savefig("figure/shap_values_xgboost_faradic.png")
+plt.tight_layout()
+plt.savefig("figure/shap_values_xgboost_faradic.png", dpi=300, bbox_inches="tight")
 plt.close()
 
 # plot shap values for both targets
+plt.figure()
 explainer = shap.Explainer(model2, X)
 shap_values = explainer(X)
 shap.summary_plot(shap_values, X, show=False)
-plt.savefig("figure/shap_values_xgboost_nh3.png")
+plt.tight_layout()
+plt.savefig("figure/shap_values_xgboost_nh3.png", dpi=300, bbox_inches="tight")
 plt.close()
