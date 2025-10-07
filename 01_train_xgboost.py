@@ -11,8 +11,8 @@ from plot_utils import plot_scatter
 warnings.filterwarnings("ignore")
 
 # Set font to Arial Bold
-plt.rcParams['font.family'] = 'Arial'
-plt.rcParams['font.weight'] = 'bold'
+plt.rcParams["font.family"] = "Arial"
+plt.rcParams["font.weight"] = "bold"
 
 # Load data
 data = pd.read_csv("data/processed/data.csv")
@@ -67,13 +67,17 @@ plt.figure()
 explainer = shap.Explainer(model1, X)
 shap_values = explainer(X)
 shap.summary_plot(shap_values, X, show=False)
-plt.xlabel("SHAP value")
+cb_ax = plt.gcf().axes[-1]  # colorbar axis is always the last one
+cb_ax.set_ylabel("Feature value", fontweight="bold", fontfamily="Arial")
+plt.xlabel("SHAP value", fontweight="bold", fontfamily="Arial")
 # Add frame to the plot
 ax = plt.gca()
 for spine in ax.spines.values():
     spine.set_visible(True)
-    spine.set_linewidth(1)
-    spine.set_color('black')
+    spine.set_linewidth(1.5)
+    spine.set_color("black")
+# Move y-axis tick labels closer to the axis and add outward ticks
+ax.tick_params(axis="y", pad=-15)
 plt.tight_layout()
 plt.savefig("figure/shap_values_xgboost_faradic.png", dpi=300, bbox_inches="tight")
 plt.close()
@@ -83,13 +87,17 @@ plt.figure()
 explainer = shap.Explainer(model2, X)
 shap_values = explainer(X)
 shap.summary_plot(shap_values, X, show=False)
-plt.xlabel("SHAP value")
+cb_ax = plt.gcf().axes[-1]  # colorbar axis is always the last one
+cb_ax.set_ylabel("Feature value", fontweight="bold", fontfamily="Arial")
+plt.xlabel("SHAP value", fontweight="bold", fontfamily="Arial")
 # Add frame to the plot
 ax = plt.gca()
 for spine in ax.spines.values():
     spine.set_visible(True)
-    spine.set_linewidth(1)
-    spine.set_color('black')
+    spine.set_linewidth(1.5)
+    spine.set_color("black")
+# Move y-axis tick labels closer to the axis and add outward ticks
+ax.tick_params(axis="y", pad=-15)
 plt.tight_layout()
 plt.savefig("figure/shap_values_xgboost_nh3.png", dpi=300, bbox_inches="tight")
 plt.close()
