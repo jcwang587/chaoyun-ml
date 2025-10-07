@@ -8,7 +8,9 @@ import pandas as pd
 # Global variables
 # ----------------------------------------------------------------------
 
-PLOT_RC_PARAMS: dict[str, float | int] = {
+PLOT_RC_PARAMS: dict[str, float | int | str] = {
+    "font.family": "Arial",
+    "font.weight": "bold",
     "font.size": 18,
     "axes.labelsize": 20,
     "axes.linewidth": 1.5,
