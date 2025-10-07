@@ -78,6 +78,9 @@ for spine in ax.spines.values():
     spine.set_color("black")
 # Move y-axis tick labels closer to the axis and add outward ticks
 ax.tick_params(axis="y", pad=-15)
+# add text "relative Faradic Efficiency" to the bottom right
+# ax.text(7, -0.8, "Faradic\nEfficiency", fontweight="bold", fontfamily="Arial", ha="right", va="bottom")
+ax.text(-15, -0.8, "Faradic Efficiency", fontweight="bold", fontfamily="Arial", ha="left", va="bottom")
 plt.tight_layout()
 plt.savefig("figure/shap_values_xgboost_faradic.png", dpi=300, bbox_inches="tight")
 plt.close()
@@ -98,6 +101,9 @@ for spine in ax.spines.values():
     spine.set_color("black")
 # Move y-axis tick labels closer to the axis and add outward ticks
 ax.tick_params(axis="y", pad=-15)
+# add text "relative NH3 Yield" to the bottom right
+# ax.text(8, -0.8, "NH$_3$ Yield", fontweight="bold", fontfamily="Arial", ha="right", va="bottom")
+ax.text(-22, -0.8, "NH$_3$ Yield", fontweight="bold", fontfamily="Arial", ha="left", va="bottom")
 plt.tight_layout()
 plt.savefig("figure/shap_values_xgboost_nh3.png", dpi=300, bbox_inches="tight")
 plt.close()
